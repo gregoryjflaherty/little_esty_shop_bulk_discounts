@@ -11,17 +11,6 @@ RSpec.describe 'Merchant Dashboard Links to Discount Index' do
       @discount4 = create(:discount, merchant_id: @merchant1.id )
     end
 
-
-#     Merchant Bulk Discounts Index
-#
-# As a merchant
-# When I visit my merchant dashboard
-# Then I see a link to view all my discounts
-# When I click this link
-# Then I am taken to my bulk discounts index page
-# Where I see all of my bulk discounts including their
-# percentage discount and quantity thresholds
-# And each bulk discount listed includes a link to its show page
     it 'As a merchant, I visit my dashboard and see a link to all my discounts' do
       visit merchant_dashboard_index_path(@merchant1)
       expect(current_path).to eq(merchant_dashboard_index_path(@merchant1))
@@ -55,7 +44,6 @@ RSpec.describe 'Merchant Dashboard Links to Discount Index' do
 
       within 'div.title' do
         expect(page).to have_content(@discount1.name)
-        save_and_open_page
       end
     end
   end
