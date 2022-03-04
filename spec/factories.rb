@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :customer do
-    first_name {Faker::TvShows::GameOfThrones.character}
-    last_name {Faker::TvShows::GameOfThrones.character}
+    first_name {Faker::TvShows::GameOfThrones.unique.character}
+    last_name {Faker::TvShows::GameOfThrones.unique.character}
   end
 
   factory :invoice do
@@ -11,7 +11,7 @@ FactoryBot.define do
   end
 
   factory :merchant do
-    name {Faker::TvShows::GameOfThrones.house}
+    name {Faker::TvShows::GameOfThrones.unique.house}
     # discount
   end
 
@@ -35,7 +35,7 @@ FactoryBot.define do
   end
 
   factory :discount do
-    name {"#{Faker::TvShows::GameOfThrones.city}'s Deal"}
+    name {"#{(Faker::TvShows::GameOfThrones.unique.city)}'s Deal"}
     quantity_thresh { 10 }
     percentage { 20 }
 
