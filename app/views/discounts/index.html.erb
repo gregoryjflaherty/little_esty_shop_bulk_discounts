@@ -1,0 +1,36 @@
+<div class="header">
+  <h1><%=@merchant.name%>'s Discounts<h1>
+</div>
+
+<h3>
+<div class="discount_links">
+  <table class="table-dark">
+    <thead class= 'table'>
+      <style>
+        .discount_links {
+      position: relative;
+      height: 500px;
+      width: 500px;
+      overflow: auto;
+      }
+      .discount_links {
+      display: block;
+      }
+      </style>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Percentage Discount</th>
+        <th scope="col">Quantity Threshold</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @discounts.each do |discount| %>
+      <tr>
+        <th scope="row"><%= link_to "#{discount.name}", merchant_discount_path(@merchant.id, discount.id) %></th>
+        <th scope="row"><%= discount.percentage%>%</th>
+        <th scope="row"><%= discount.quantity_thresh%></th>
+      </tr>
+      <%end%>
+    </tbody>
+  </table>
+</div></h3>
