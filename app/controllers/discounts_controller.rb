@@ -1,6 +1,7 @@
 class DiscountsController < ApplicationController
   before_action :set_merchant, only: [:index, :show]
   before_action :set_discount, only: [:show]
+  before_action :set_holidays, only: [:index]
 
   def index
     @discounts = @merchant.discounts
@@ -18,5 +19,9 @@ class DiscountsController < ApplicationController
 
   def set_discount
     @discount = Discount.find(params[:id])
+  end
+
+  def set_holidays
+    @holidays = HolidayService.holiday_info
   end
 end
