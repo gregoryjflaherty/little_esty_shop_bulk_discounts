@@ -1,0 +1,32 @@
+<h3>
+<div class="holiday_table">
+  <table class="table-dark">
+    <thead class= 'table'>
+      <style>
+        .holiday_table {
+      position: relative;
+      height: 200px;
+      width: 600px;
+      overflow: auto;
+      }
+      .holiday_table {
+      display: block;
+      }
+      </style>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @holidays.each_with_index do |holiday, idx| %>
+      <tr>
+        <div class="holiday_<%=idx%>">
+          <th scope="row"><%= holiday.name%></th>
+          <th scope="row"><%= holiday.date%></th>
+        </div>
+      </tr>
+      <%end%>
+    </tbody>
+  </table>
+</div></h3>
