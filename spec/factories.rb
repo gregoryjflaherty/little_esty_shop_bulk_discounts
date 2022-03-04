@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :customer do
-    first_name {Faker::Name.first_name}
-    last_name {Faker::Dessert.variety}
+    first_name {Faker::TvShows::GameOfThrones.character}
+    last_name {Faker::TvShows::GameOfThrones.character}
   end
 
   factory :invoice do
@@ -11,14 +11,13 @@ FactoryBot.define do
   end
 
   factory :merchant do
-    name {Faker::Space.galaxy}
-    invoices
-    items
+    name {Faker::TvShows::GameOfThrones.house}
+    # discount
   end
 
   factory :item do
-    name {Faker::Coffee.variety}
-    description {Faker::Hipster.sentence}
+    name {Faker::TvShows::GameOfThrones.dragon}
+    description {Faker::TvShows::GameOfThrones.quote}
     unit_price {Faker::Number.decimal(l_digits: 2)}
     merchant
   end
@@ -33,5 +32,13 @@ FactoryBot.define do
     status {[0,1,2].sample}
     merchant
     invoice
+  end
+
+  factory :discount do
+    name {"#{Faker::TvShows::GameOfThrones.city}'s Deal"}
+    quantity_thresh { 10 }
+    percentage { 20 }
+
+    merchant
   end
 end
