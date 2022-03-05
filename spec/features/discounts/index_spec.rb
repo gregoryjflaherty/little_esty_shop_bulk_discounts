@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Merchant Dashboard Links to Discount Index' do
+RSpec.describe 'Merchant Bulk Discounts Index' do
   before(:each) do
     @merchant1 = create(:merchant)
 
@@ -10,7 +10,7 @@ RSpec.describe 'Merchant Dashboard Links to Discount Index' do
     @discount4 = create(:discount, merchant_id: @merchant1.id )
   end
 
-  describe 'User Story 1' do
+  describe 'User Story 1 - Merchant Dashboard Links to Discount Index' do
     it 'As a merchant, I visit my dashboard and see a link to all my discounts' do
       visit merchant_dashboard_index_path(@merchant1)
       expect(current_path).to eq(merchant_dashboard_index_path(@merchant1))
@@ -48,7 +48,7 @@ RSpec.describe 'Merchant Dashboard Links to Discount Index' do
     end
   end
 
-  describe 'User Story 2' do
+  describe 'User Story 2 - Discount Index Shows Upcoming Holidays' do
     describe 'it has a section with a header "Upcoming Holidays" and lists next 3 US holidays' do
       it 'has a section with header "Upcoming Holidays"' do
         visit merchant_discounts_path(@merchant1)
@@ -77,7 +77,6 @@ RSpec.describe 'Merchant Dashboard Links to Discount Index' do
         within 'div.holiday_2' do
           expect(page).to have_content(HolidayService.holiday_info[2].name)
           expect(page).to have_content(HolidayService.holiday_info[2].date)
-          save_and_open_page
         end
       end
     end
