@@ -23,7 +23,7 @@
       <tr>
         <th scope="row"><%= link_to "#{discount.name}", merchant_discount_path(@merchant.id, discount.id) %></th>
         <th scope="row"><%= discount.percentage%>%</th>
-        <th scope="row"><%= discount.quantity_thresh%></th>
+        <th scope="row"><%= discount.quantity_threshold%></th>
       </tr>
       <%end%>
     </tbody>
