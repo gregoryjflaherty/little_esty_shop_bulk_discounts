@@ -36,7 +36,7 @@ FactoryBot.define do
 
   factory :discount do
     name {"#{(Faker::TvShows::GameOfThrones.unique.city)}'s Deal"}
-    quantity_thresh { 10 }
+    quantity_threshold { 10 }
     percentage { 20 }
 
     merchant
