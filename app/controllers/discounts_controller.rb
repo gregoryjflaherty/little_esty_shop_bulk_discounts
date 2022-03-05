@@ -12,12 +12,12 @@ class DiscountsController < ApplicationController
   end
 
   def create
-    @discount = @merchant.discounts.create!(discount_params)
+    @discount = @merchant.discounts.create(discount_params)
     if @discount.save
       flash[:notice] = "#{@discount.name} Has Been Created!"
       redirect_to merchant_discounts_path(@merchant.id)
     else
-      flash[:notice] = "#{@discount.errors.messages}"
+      flash[:alert] = "Error: #{error_message(@discount.errors)}"
       render :new
     end
   end
