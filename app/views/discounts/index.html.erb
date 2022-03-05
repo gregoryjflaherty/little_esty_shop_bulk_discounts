@@ -1,6 +1,5 @@
 <div class="header">
-  <h2><%=@merchant.name%>'s Discounts<h2>
-</div>
+<h2><%=@merchant.name%>'s Discounts<h2></div>
 
 <div class="discount_links">
   <%= render 'bulk_discount_links'%>
@@ -9,4 +8,8 @@
 <div class="upcoming_holidays">
   <h2>Upcoming Holidays<h2>
   <%= render 'upcoming_holidays'%>
+</div>
+
+<div class="create_discount">
+  <%= link_to 'Create New Discount', new_merchant_discount_path(@merchant) %>
 </div>
