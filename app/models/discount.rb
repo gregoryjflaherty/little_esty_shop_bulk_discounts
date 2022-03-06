@@ -3,6 +3,5 @@ class Discount < ApplicationRecord
                         :merchant_id,
                         :quantity_threshold,
                         :percentage
-
   belongs_to :merchant
 end
