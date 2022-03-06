@@ -1,3 +1,31 @@
 <div class="title">
   <h1><%= @discount.name %></h1>
 </div>
+
+<h3>
+  <table class="table-dark">
+    <thead class= 'table'>
+      <style>
+        .discount_links {
+      position: relative;
+      height: 200px;
+      width: 500px;
+      overflow: auto;
+      }
+      .discount_links {
+      display: block;
+      }
+      </style>
+      <tr>
+        <th scope="col">Percentage Discount</th>
+        <th scope="col">Quantity Threshold</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row"><%= @discount.percentage%>%</th>
+        <th scope="row"><%= @discount.quantity_threshold%></th>
+      </tr>
+    </tbody>
+  </table>
+</h3>
