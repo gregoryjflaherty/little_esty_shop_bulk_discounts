@@ -26,7 +26,7 @@ RSpec.describe 'Merchant Bulk Discount Create' do
       visit new_merchant_discount_path(@merchant1)
       expect(current_path).to eq(new_merchant_discount_path(@merchant1))
 
-      within 'div.new_discount_form' do
+      within 'div.discount_form' do
         fill_in('discount_name', with: 'Stark Discount')
         fill_in('discount_quantity_threshold', with: 35)
         fill_in('discount_percentage', with: 45)
@@ -42,7 +42,7 @@ RSpec.describe 'Merchant Bulk Discount Create' do
       visit new_merchant_discount_path(@merchant1)
       expect(current_path).to eq(new_merchant_discount_path(@merchant1))
 
-      within 'div.new_discount_form' do
+      within 'div.discount_form' do
         fill_in('discount_name', with: 'Stark Discount')
         click_on "Create New Discount"
       end

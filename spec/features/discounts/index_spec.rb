@@ -25,7 +25,7 @@ RSpec.describe 'Merchant Bulk Discounts Index' do
       visit merchant_discounts_path(@merchant1)
       expect(current_path).to eq(merchant_discounts_path(@merchant1))
 
-      within 'div.discount_links' do
+      within 'div.discounts' do
         expect(page).to have_link(@discount1.name)
         expect(page).to have_link(@discount2.name)
         expect(page).to have_link(@discount3.name)
@@ -37,7 +37,7 @@ RSpec.describe 'Merchant Bulk Discounts Index' do
       visit merchant_discounts_path(@merchant1)
       expect(current_path).to eq(merchant_discounts_path(@merchant1))
 
-      within 'div.discount_links' do
+      within 'div.discounts' do
         click_on @discount1.name
       end
       expect(current_path).to eq(merchant_discount_path(@merchant1, @discount1))
@@ -88,7 +88,7 @@ RSpec.describe 'Merchant Bulk Discounts Index' do
         visit merchant_discounts_path(@merchant1)
         expect(current_path).to eq(merchant_discounts_path(@merchant1))
 
-        within 'div.discount_links' do
+        within 'div.discounts' do
           expect(page).to have_link(@discount1.name)
           expect(page).to have_button("Delete #{@discount1.name}")
           expect(page).to have_link(@discount2.name)
@@ -104,13 +104,13 @@ RSpec.describe 'Merchant Bulk Discounts Index' do
         visit merchant_discounts_path(@merchant1)
         expect(current_path).to eq(merchant_discounts_path(@merchant1))
 
-        within 'div.discount_links' do
+        within 'div.discounts' do
           click_on "Delete #{@discount1.name}"
         end
         expect(current_path).to eq(merchant_discounts_path(@merchant1))
         expect(page).to have_content("#{@discount1.name} Has Been Deleted!")
 
-        within 'div.discount_links' do
+        within 'div.discounts' do
           expect(page).to_not have_link(@discount1.name)
           expect(page).to_not have_button("Delete #{@discount1.name}")
           expect(page).to have_link(@discount2.name)
