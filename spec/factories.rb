@@ -35,7 +35,7 @@ FactoryBot.define do
   end
 
   factory :discount do
-    name {"#{(Faker::TvShows::GameOfThrones.unique.city)}'s Deal"}
+    sequence(:name) { |n| "#{(Faker::TvShows::GameOfThrones.city + n.to_s)}'s Deal"}
     quantity_threshold { 10 }
     percentage { 20 }
 
