@@ -19,12 +19,14 @@
       <tr>
         <th scope="col">Percentage Discount</th>
         <th scope="col">Quantity Threshold</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <th scope="row"><%= @discount.percentage%>%</th>
         <th scope="row"><%= @discount.quantity_threshold%></th>
+        <th scope="row"><%= button_to "Edit #{@discount.name}", edit_merchant_discount_path(@merchant.id, @discount.id), {method: 'get'}%></th>
       </tr>
     </tbody>
   </table>
