@@ -2,13 +2,13 @@
   <table class="table-dark">
     <thead class= 'table'>
       <style>
-        .discount_links {
+        .discounts {
       position: relative;
-      height: 200px;
-      width: 500px;
+      height: 500px;
+      width: 800px;
       overflow: auto;
       }
-      .discount_links {
+      .discounts {
       display: block;
       }
       </style>
@@ -20,7 +20,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @discounts.each do |discount| %>
+      <% @merchant.discounts.each do |discount| %>
       <tr>
         <th scope="row"><%= link_to "#{discount.name}", merchant_discount_path(@merchant.id, discount.id) %></th>
         <th scope="row"><%= discount.percentage%>%</th>
