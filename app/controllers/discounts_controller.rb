@@ -1,6 +1,6 @@
 class DiscountsController < ApplicationController
-  before_action :set_merchant, only: [:index, :show, :create, :destroy]
-  before_action :set_discount, only: [:show, :destroy]
+  before_action :set_merchant
+  before_action :set_discount, only: [:show, :destroy, :update, :edit]
   before_action :set_holidays, only: [:index]
 
   def index
@@ -24,6 +24,20 @@ class DiscountsController < ApplicationController
 
   def show
 
+  end
+
+  def edit
+
+  end
+
+  def update
+    if @discount.update(discount_params)
+      flash[:notice] = "#{@discount.name} Has Been Updated!"
+      redirect_to merchant_discount_path(@merchant, @discount)
+    else
+      flash[:alert] = "Error: #{error_message(@discount.errors)}"
+      redirect_to edit_merchant_discount_path(@merchant, @discount)
+    end
   end
 
   def destroy
