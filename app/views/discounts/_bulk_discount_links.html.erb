@@ -16,6 +16,7 @@
         <th scope="col">Name</th>
         <th scope="col">Percentage Discount</th>
         <th scope="col">Quantity Threshold</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -24,6 +25,7 @@
         <th scope="row"><%= link_to "#{discount.name}", merchant_discount_path(@merchant.id, discount.id) %></th>
         <th scope="row"><%= discount.percentage%>%</th>
         <th scope="row"><%= discount.quantity_threshold%></th>
+        <th scope="row"><%= button_to "Delete #{discount.name}", merchant_discount_path(@merchant.id, discount.id), {method: 'delete'}%></th>
       </tr>
       <%end%>
     </tbody>
