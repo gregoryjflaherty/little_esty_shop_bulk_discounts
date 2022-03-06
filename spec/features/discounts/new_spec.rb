@@ -32,6 +32,7 @@ RSpec.describe 'Merchant Bulk Discount Create' do
         fill_in('discount_percentage', with: 45)
         click_on "Create New Discount"
       end
+
       expect(current_path).to eq(merchant_discounts_path(@merchant1))
       expect(page).to have_content('Stark Discount Has Been Created!')
       expect(page).to have_content('Stark Discount')
@@ -45,9 +46,9 @@ RSpec.describe 'Merchant Bulk Discount Create' do
         fill_in('discount_name', with: 'Stark Discount')
         click_on "Create New Discount"
       end
+
       expect(page).to have_content("Error: Quantity threshold can't be blank, Percentage can't be blank")
       expect(current_path).to eq(merchant_discounts_path(@merchant1))
-      save_and_open_page
     end
   end
 end
