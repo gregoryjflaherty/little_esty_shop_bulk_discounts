@@ -29,7 +29,18 @@ class Invoice < ApplicationRecord
                  .group('invoice_items.item_id').sum(&:max)
   end
 
+  def discount_off_whole_invoice
+    invoice_items.joins(:discounts, :item)
+                 .where('invoice_items.quantity >= discounts.quantity_threshold')
+                 .select('invoice_items.item_id, MAX(invoice_items.quantity * invoice_items.unit_price * discounts.percentage * 0.01)')
+                 .group('invoice_items.item_id').sum(&:max)
+  end
+
   def discounted_revenue_for_merchant(merchant)
     total_revenue_for_merchant(merchant) - discount_off_per_merchant(merchant)
+  end
+
+  def discounted_revenue_whole_invoice
+    total_revenue - discount_off_whole_invoice
   end
 end
