@@ -69,4 +69,44 @@ describe 'Admin Invoices Index Page' do
       expect(@i1.status).to eq('complete')
     end
   end
+
+  describe 'User Story 9 ' do
+    before(:each) do
+      @customer1= create(:customer)
+
+      @merchant1 = create(:merchant)
+      @merchant2 = create(:merchant)
+
+      @discount1 = create(:discount, merchant_id: @merchant1.id, quantity_threshold: 10, percentage: 50.0)
+      @discount2 = create(:discount, merchant_id: @merchant1.id, quantity_threshold: 5 )
+      @discount3 = create(:discount, merchant_id: @merchant2.id, quantity_threshold: 5, percentage: 60.0)
+
+      @item1 = create(:item, unit_price: 10, merchant_id: @merchant1.id)
+      @item2 = create(:item, unit_price: 5, merchant_id: @merchant1.id)
+      @item3 = create(:item, unit_price: 10, merchant_id: @merchant2.id)
+
+      @invoice1 = create(:invoice, status: 2, customer_id: @customer1.id)
+      @invoice_item1 = create(:invoice_item, invoice_id: @invoice1.id, item_id: @item1.id, unit_price: 10, quantity: 10, status: 2)
+      @invoice_item2 = create(:invoice_item, invoice_id: @invoice1.id, item_id: @item2.id, unit_price: 5, quantity: 5, status: 2)
+      @invoice_item3 = create(:invoice_item, invoice_id: @invoice1.id, item_id: @item3.id, unit_price: 5, quantity: 5, status: 2)
+    end
+
+    it 'shows revenue for entire invoice - before discounts' do
+      visit admin_invoice_path(@invoice1)
+      expect(current_path).to eq(admin_invoice_path(@invoice1))
+
+      within 'div.revenue' do
+        expect(page).to have_content("Total Revenue: $#{@invoice1.total_revenue}")
+      end
+    end
+
+    it 'shows revenue for entire invoice - after discounts' do
+      visit admin_invoice_path(@invoice1)
+      expect(current_path).to eq(admin_invoice_path(@invoice1))
+
+      within 'div.revenue' do
+        expect(page).to have_content("Total Discounted Revenue: $#{@invoice1.discounted_revenue_whole_invoice}")
+      end
+    end
+  end
 end
