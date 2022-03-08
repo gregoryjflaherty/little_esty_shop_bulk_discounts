@@ -53,12 +53,20 @@ RSpec.describe Invoice, type: :model do
       expect(@invoice1.total_revenue_for_merchant(@merchant1)).to eq(125)
     end
 
-    it '.discount_off - provides amount subtracted' do
+    it '.discount_off - provides amount subtracted per merchant' do
       expect(@invoice1.discount_off_per_merchant(@merchant1)).to eq(55)
     end
 
     it '.discounted_revenue_for_merchant - provides discounted revenue if discount applies' do
       expect(@invoice1.discounted_revenue_for_merchant(@merchant1)).to eq(70)
+    end
+
+    it '.discount_off_whole_invoice - provides amount subtracted of whole invoice' do
+      expect(@invoice1.discount_off_whole_invoice).to eq(70)
+    end
+
+    it '.discounted_revenue_whole_invoice - gives revenue of entire invoice w/ discounts' do
+      expect(@invoice1.discounted_revenue_whole_invoice).to eq(80)
     end
   end
 end
