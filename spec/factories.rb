@@ -1,12 +1,12 @@
 FactoryBot.define do
   factory :customer do
-    first_name {Faker::TvShows::GameOfThrones.unique.character}
-    last_name {Faker::TvShows::GameOfThrones.unique.character}
+    first_name {Faker::TvShows::GameOfThrones.unique.character.split(" ")[0]}
+    last_name {Faker::TvShows::GameOfThrones.unique.character.split(" ")[-1]}
   end
 
   factory :invoice do
     status {[0,1,2].sample}
-    merchant
+    # merchant
     customer
   end
 
@@ -30,7 +30,7 @@ FactoryBot.define do
 
   factory :invoice_item do
     status {[0,1,2].sample}
-    merchant
+    # merchant
     invoice
   end
 

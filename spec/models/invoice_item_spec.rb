@@ -11,6 +11,7 @@ RSpec.describe InvoiceItem, type: :model do
   describe "relationships" do
     it { should belong_to :invoice }
     it { should belong_to :item }
+    it { should have_many(:discounts).through(:item) }
   end
 
   describe "class methods" do
@@ -37,6 +38,28 @@ RSpec.describe InvoiceItem, type: :model do
     end
     it 'incomplete_invoices' do
       expect(InvoiceItem.incomplete_invoices).to eq([@i1, @i3])
+    end
+  end
+
+  describe '.instance_methods' do
+    before(:each) do
+      @customer1= create(:customer)
+      @merchant1 = create(:merchant)
+      @discount1 = create(:discount, merchant_id: @merchant1.id, quantity_threshold: 10, percentage: 50.0)
+      @discount2 = create(:discount, merchant_id: @merchant1.id, quantity_threshold: 5 )
+      @discount3 = create(:discount, merchant_id: @merchant1.id, quantity_threshold: 20, percentage: 60.0)
+      @item1 = create(:item, unit_price: 10, merchant_id: @merchant1.id)
+      @item2 = create(:item, unit_price: 5, merchant_id: @merchant1.id)
+      @invoice1 = create(:invoice, status: 2, customer_id: @customer1.id)
+      @invoice_item1 = create(:invoice_item, invoice_id: @invoice1.id, item_id: @item1.id, unit_price: 10, quantity: 10, status: 2)
+      @invoice_item2 = create(:invoice_item, invoice_id: @invoice1.id, item_id: @item2.id, unit_price: 5, quantity: 5, status: 2)
+      @invoice_item3 = create(:invoice_item, invoice_id: @invoice1.id, item_id: @item2.id, unit_price: 5, quantity: 2, status: 2)
+    end
+
+    it '.best_discount - gives best discount' do
+      expect(@invoice_item1.best_discount).to eq(@discount1)
+      expect(@invoice_item2.best_discount).to eq(@discount2)
+      expect(@invoice_item3.best_discount).to eq(nil)
     end
   end
 end
