@@ -104,40 +104,52 @@ RSpec.describe 'invoices show' do
     before(:each) do
       @customer1= create(:customer)
 
-      @merchant_1 = create(:merchant)
-      @merchant_2 = create(:merchant)
+      @merchant1 = create(:merchant)
+      @merchant2 = create(:merchant)
 
       @discount1 = create(:discount, merchant_id: @merchant1.id, quantity_threshold: 10, percentage: 50.0)
       @discount2 = create(:discount, merchant_id: @merchant1.id, quantity_threshold: 5 )
       @discount3 = create(:discount, merchant_id: @merchant1.id, quantity_threshold: 20, percentage: 60.0)
       @discount4 = create(:discount, merchant_id: @merchant2.id, quantity_threshold: 5, percentage: 60.0)
 
-      @item1 = create(:item, unit_price: 10, merchant_id: @merchant_1.id)
-      @item2 = create(:item, unit_price: 5, merchant_id: @merchant_1.id)
-      @item3 = create(:item, unit_price: 5, merchant_id: @merchant_2.id)
+      @item1 = create(:item, unit_price: 10, merchant_id: @merchant1.id)
+      @item2 = create(:item, unit_price: 5, merchant_id: @merchant1.id)
+      @item3 = create(:item, unit_price: 10, merchant_id: @merchant2.id)
 
-      @invoice_1 = create(:invoice, status: 2, customer_id: @customer1.id)
-      @invoice_item1 = create(:invoice_item, invoice_id: @invoice_1.id, item_id: @item1.id, unit_price: 10, quantity: 10, status: 2)
-      @invoice_item2 = create(:invoice_item, invoice_id: @invoice_1.id, item_id: @item2.id, unit_price: 5, quantity: 5, status: 2)
-      @invoice_item3 = create(:invoice_item, invoice_id: @invoice_1.id, item_id: @item3.id, unit_price: 5, quantity: 5, status: 2)
-
+      @invoice1 = create(:invoice, status: 2, customer_id: @customer1.id)
+      @invoice_item1 = create(:invoice_item, invoice_id: @invoice1.id, item_id: @item1.id, unit_price: 10, quantity: 10, status: 2)
+      @invoice_item2 = create(:invoice_item, invoice_id: @invoice1.id, item_id: @item2.id, unit_price: 5, quantity: 5, status: 2)
+      @invoice_item3 = create(:invoice_item, invoice_id: @invoice1.id, item_id: @item3.id, unit_price: 5, quantity: 5, status: 2)
     end
 
     it 'shows total revenue for merchant' do
-      visit merchant_invoice_path(@merchant_1, @invoice_1)
-      expect(current_path).to eq(merchant_invoice_path(@merchant_1, @invoice_1))
+      visit merchant_invoice_path(@merchant1, @invoice1)
+      expect(current_path).to eq(merchant_invoice_path(@merchant1, @invoice1))
 
       within 'div.revenue' do
-        expect(page).to have_content("Total Revenue for #{@merchant_1.name}: #{@invoice_1.total_revenue_for_merchant(@merchant_1)}")
+        expect(page).to have_content("Total Revenue for #{@merchant1.name}: #{@invoice1.total_revenue_for_merchant(@merchant1)}")
       end
     end
 
     it 'shows discounted revenue for merchant' do
-      visit merchant_invoice_path(@merchant_1, @invoice_1)
-      expect(current_path).to eq(merchant_invoice_path(@merchant_1, @invoice_1))
+      visit merchant_invoice_path(@merchant1, @invoice1)
+      expect(current_path).to eq(merchant_invoice_path(@merchant1, @invoice1))
 
       within 'div.revenue' do
-        expect(page).to have_content("Total Discounted Revenue for #{@merchant_1.name}: #{@invoice_1.total_revenue_for_merchant(@merchant_1)}")
+        expect(page).to have_content("Total Discounted Revenue for #{@merchant1.name}: #{@invoice1.discounted_revenue_for_merchant(@merchant1)}")
+      end
+    end
+
+    describe 'User Story 8' do
+      it 'has a link to discount if discount is applied' do
+        visit merchant_invoice_path(@merchant1, @invoice1)
+        expect(current_path).to eq(merchant_invoice_path(@merchant1, @invoice1))
+
+        within "#the-status-#{@invoice_item1.id}" do
+          expect(page).to have_link("#{@discount1.name}")
+          click_on "#{@discount1.name}"
+          expect(current_path).to eq(merchant_discount_path(@merchant1, @discount1))
+        end
       end
     end
   end
