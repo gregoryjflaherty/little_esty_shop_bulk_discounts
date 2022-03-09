@@ -1,7 +1,7 @@
 require 'httparty'
 require 'json'
 require 'pry'
-require_relative '/Users/gregjflaherty/2module/little_esty_shop_bulk_discounts/app/poros/holiday.rb'
+
 
 
 
