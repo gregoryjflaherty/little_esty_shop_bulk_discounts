@@ -1,9 +1,5 @@
 require 'httparty'
 require 'json'
-require 'pry'
-
-
-
 
 class HolidayService
   def self.holiday_info
