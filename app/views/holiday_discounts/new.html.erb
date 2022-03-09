@@ -1,0 +1,5 @@
+
+<%= render partial: './shared/form', locals: {
+                    discount: Discount.new(name: params[:format], quantity_threshold: 2, percentage: 30 ),
+                    label: "Create New Discount",
+                    } %>
