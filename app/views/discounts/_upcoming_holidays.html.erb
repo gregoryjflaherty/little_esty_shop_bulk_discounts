@@ -3,15 +3,6 @@
   <table class="table-dark">
     <thead class= 'table'>
       <style>
-        .holiday_table {
-      position: relative;
-      height: 200px;
-      width: 600px;
-      overflow: auto;
-      }
-      .holiday_table {
-      display: block;
-      }
       </style>
       <tr>
         <th scope="col">Name</th>
@@ -24,6 +15,7 @@
         <div class="holiday_<%=idx%>">
           <th scope="row"><%= holiday.name%></th>
           <th scope="row"><%= holiday.date%></th>
+          <th scope="row"><%= button_to "Create #{holiday.name} Discount", new_merchant_holiday_discount_path(@merchant, holiday.name), method: 'get' %></th>
         </div>
       </tr>
       <%end%>
